@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circular Array</title>
+    <script src="circular-array.min.js"></script>
+</head>
+<body>
+    <p>
+        Press F12 and see console.logs.<br/><br/>
+        By default number of elements in array is set to 10. It can be modified.<br/>
+        For example use get param n=100 to set it to 100.
+    </p>
+    <pre>
+// here we have circular array cArr - "endless train"
+var cars = 0; // 0 cars
+var count = true; // continue counting
+
+// get into a car and turn the light on if it's not
+if (cArr.next() !== 1) cArr.setCurrentValue(1);
+cars++;
+
+while(true) {
+    cArr.next();
+    cars++;
+
+    // if light in current car is off, go forward to the next one
+    if (cArr.curr() !== 1) continue;
+
+    // light in current car is on
+    cArr.setCurrentValue(0); // turn it off
+
+    // go back to check if the light was turned of in the first car
+    for (var i = cars - 1; i > 0; i--) {
+        cArr.prev();
+
+        // continue going back if it's not first car
+        if (i !== 1) continue;
+
+        // returned to first car ...
+        if (cArr.curr() === 1) { // ... light is on
+            //console.log('there could be more cars than ' + cars);
+            for (var j = 1; j !== cars; j++) cArr.next();
+        } else { // ... light is off
+            console.log((cars - 1) + ' cars in train');
+            count = false; // stop counting
+        }
+    }
+
+    // stop walking back and forth
+    if (!count) break;
+}
+    </pre>
+    <p>
+        <a href="index.html">go to circular array details</a>
+    </p>
+    <p>
+        <a href="circular-array.min.js" target="_blank">get minified CircArray</a>
+    </p>
+    <p>
+        <a href="https://en.wikipedia.org/wiki/Circular_buffer"
+           target="_blank">https://en.wikipedia.org/wiki/Circular_buffer</a>
+    </p>
+    <script>
+        const randomInteger = function(min, max) {
+            var rand = min - 0.5 + Math.random() * (max - min + 1);
+            rand = Math.round(rand);
+            return rand;
+        };
+
+        const getArr = function(arrLength, range) {
+            var arr = [];
+            for (var i = 0; i < arrLength; i++) {
+                arr.push(randomInteger(0, range));
+            }
+            return arr;
+        };
+
+        var url = new URL(location);
+
+        var n = url.searchParams.get("n");
+        if (!n) n = 10;
+        arrLength = isNaN(n) ? 10 : parseInt(n);
+
+        var r = url.searchParams.get("r");
+        if (!r) r = 1;
+        valRange = isNaN(r) ? 1 : parseInt(r);
+
+        var cArr = new CircArray();
+        cArr.setArray(getArr(arrLength, valRange));
+        console.log(cArr.toArray());
+
+        // here we have circular array cArr - "endless train"
+        var cars = 0; // 0 cars
+        var count = true; // continue counting
+
+        // get into a car and turn the light on if it's not
+        if (cArr.next() !== 1) cArr.setCurrentValue(1);
+        cars++;
+
+        while(true) {
+            cArr.next();
+            cars++;
+
+            // if light in current car is off, go forward to the next one
+            if (cArr.curr() !== 1) continue;
+
+            // light in current car is on
+            cArr.setCurrentValue(0); // turn it off
+
+            // go back to check if the light was turned of in the first car
+            for (var i = cars - 1; i > 0; i--) {
+                cArr.prev();
+
+                // continue going back if it's not first car
+                if (i !== 1) continue;
+
+                // returned to first car ...
+                if (cArr.curr() === 1) { // ... light is on
+                    //console.log('there could be more cars than ' + cars);
+                    for (var j = 1; j !== cars; j++) cArr.next();
+                } else { // ... light is off
+                    console.log((cars - 1) + ' cars in train');
+                    count = false; // stop counting
+                }
+            }
+
+            // stop walking back and forth
+            if (!count) break;
+        }
+    </script>
+</body>
+</html>

@@ -5,6 +5,7 @@ function CircArray() {
     return {
         setArray: function(newArray) {
             arr = newArray;
+            currIndex = -1;
         },
         setCurrentValue: function(newValue) {
             arr[currIndex] = newValue;

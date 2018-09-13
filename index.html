@@ -7,7 +7,11 @@
 </head>
 <body>
     <p>
-        Press F12 and explore object cArr.
+        Press F12 and explore object cArr.q<br/><br/>
+        By default number of elements in array is set to 10. It can be modified.<br/>
+        For example use get param n=100 to set it to 100.<br/><br/>
+        By default range of random integers is set to (0, 1). Max value can be modified.<br/>
+        For example use get param r=3 to set range of random integers to (0, 3).
     </p>
     <pre>
 function CircArray() {
@@ -17,6 +21,7 @@ function CircArray() {
     return {
         setArray: function(newArray) {
             arr = newArray;
+            currIndex = -1;
         },
         setCurrentValue: function(newValue) {
             arr[currIndex] = newValue;
@@ -52,7 +57,14 @@ function CircArray() {
 }
     </pre>
     <p>
-        <a href="https://en.wikipedia.org/wiki/Circular_buffer">https://en.wikipedia.org/wiki/Circular_buffer</a>
+        <a href="example-endless-train.html">go to example with endless train</a>
+    </p>
+    <p>
+        <a href="circular-array.min.js" target="_blank">get minified CircArray</a>
+    </p>
+    <p>
+        <a href="https://en.wikipedia.org/wiki/Circular_buffer"
+           target="_blank">https://en.wikipedia.org/wiki/Circular_buffer</a>
     </p>
     <script>
         const randomInteger = function(min, max) {
