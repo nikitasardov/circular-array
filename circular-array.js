@@ -1,4 +1,4 @@
-function CircArray(arrLength) {
+function CircArray() {
     let arr = [],
         currIndex = -1;
 
