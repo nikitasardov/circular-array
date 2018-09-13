@@ -58,22 +58,26 @@ function CircArray(arrLength) {
             return rand;
         };
 
-        const getArr = function(arrLength) {
+        const getArr = function(arrLength, range) {
             var arr = [];
-            for (var i=0; i < arrLength; i++) {
-                arr.push(randomInteger(0, 9));
+            for (var i = 0; i < arrLength; i++) {
+                arr.push(randomInteger(0, range));
             }
             return arr;
         };
 
         var url = new URL(location);
-        var n = url.searchParams.get("n");
 
+        var n = url.searchParams.get("n");
         if (!n) n = 10;
         arrLength = isNaN(n) ? 10 : parseInt(n);
 
+        var r = url.searchParams.get("r");
+        if (!r) r = 1;
+        valRange = isNaN(r) ? 1 : parseInt(r);
+
         var cArr = new CircArray();
-        cArr.setArray(getArr(arrLength));
+        cArr.setArray(getArr(arrLength, valRange));
         console.log(cArr.toArray());
     </script>
 </body>

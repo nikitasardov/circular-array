@@ -6,6 +6,9 @@ function CircArray(arrLength) {
         setArray: function(newArray) {
             arr = newArray;
         },
+        setCurrentValue: function(newValue) {
+            arr[currIndex] = newValue;
+        },
         toArray: function() {
             return arr;
         },
