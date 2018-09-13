@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Circular Array</title>
-    <script src="circular-array.js"></script>
+    <script src="circular-array.min.js"></script>
 </head>
 <body>
     <p>
@@ -14,52 +14,37 @@ function CircArray(arrLength) {
     let arr = [],
         currIndex = -1;
 
-    let status = function() {
-        console.log({
-            length: arr.length,
-            currentIndex: currIndex,
-            currentValue: arr[currIndex],
-            arr: arr
-        });
-    };
-
-    let setArray = function(newArray) {
-        arr = newArray;
-    };
-
-    let toArray = function() {
-        return arr;
-    };
-
-    let push = function(el) {
-        arr.push(el);
-    };
-
-    let prev = function() {
-        if (0 > (currIndex - 1)) currIndex = arr.length - 1;
-        else currIndex--;
-        return arr[currIndex];
-    };
-
-    let current = function() {
-        return arr[currIndex];
-    };
-
-    let next = function() {
-        if (arr.length <= (currIndex + 1)) currIndex = 0;
-        else currIndex++;
-        return arr[currIndex];
-    };
-
     return {
-        setArray: setArray,
-        toArray: toArray,
-        status: status,
-        push: push,
-
-        prev: prev,
-        curr: current,
-        next: next
+        setArray: function(newArray) {
+            arr = newArray;
+        },
+        toArray: function() {
+            return arr;
+        },
+        status: function() {
+            console.log({
+                length: arr.length,
+                currentIndex: currIndex,
+                currentValue: arr[currIndex],
+                arr: arr
+            });
+        },
+        push: function(el) {
+            arr.push(el);
+        },
+        prev: function() {
+            if (0 > (currIndex - 1)) currIndex = arr.length - 1;
+            else currIndex--;
+            return arr[currIndex];
+        },
+        curr: function() {
+            return arr[currIndex];
+        },
+        next: function() {
+            if (arr.length <= (currIndex + 1)) currIndex = 0;
+            else currIndex++;
+            return arr[currIndex];
+        }
     }
 }
     </pre>
@@ -67,27 +52,27 @@ function CircArray(arrLength) {
         <a href="https://en.wikipedia.org/wiki/Circular_buffer">https://en.wikipedia.org/wiki/Circular_buffer</a>
     </p>
     <script>
-        let randomInteger = function(min, max) {
-            let rand = min - 0.5 + Math.random() * (max - min + 1);
+        const randomInteger = function(min, max) {
+            var rand = min - 0.5 + Math.random() * (max - min + 1);
             rand = Math.round(rand);
             return rand;
         };
 
-        let getArr = function(arrLength) {
-            let arr = [];
-            for (let i=0; i < arrLength; i++) {
+        const getArr = function(arrLength) {
+            var arr = [];
+            for (var i=0; i < arrLength; i++) {
                 arr.push(randomInteger(0, 9));
             }
             return arr;
         };
 
-        let url = new URL(location);
-        let n = url.searchParams.get("n");
+        var url = new URL(location);
+        var n = url.searchParams.get("n");
 
         if (!n) n = 10;
         arrLength = isNaN(n) ? 10 : parseInt(n);
 
-        let cArr = new CircArray();
+        var cArr = new CircArray();
         cArr.setArray(getArr(arrLength));
         console.log(cArr.toArray());
     </script>
