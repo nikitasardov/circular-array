@@ -3,31 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Circular Array</title>
-    <script src="script.js"></script>
+    <script src="circular-array.js"></script>
 </head>
 <body>
     <p>
         Press F12 and explore object cArr.
     </p>
     <pre>
-    function CircArray(arrLength) {
-        if (!arrLength) arrLength = 10;
-        arrLength = isNaN(arrLength) ? 10 : parseInt(arrLength);
+function CircArray(arrLength) {
+    let arr = [],
+        currIndex = -1;
 
-        let arr = [],
-            currIndex = -1;
+    let status = function() {
+        console.log({
+            length: arr.length,
+            currentIndex: currIndex,
+            currentValue: arr[currIndex],
+            arr: arr
+        });
+    };
 
-        let construct = function() {
-            arr = getArr();
-        };
+    let setArray = function(newArray) {
+        arr = newArray;
+    };
 
+    let toArray = function() {
+        return arr;
+    };
+
+    let push = function(el) {
+        arr.push(el);
+    };
+
+    let prev = function() {
+        if (0 > (currIndex - 1)) currIndex = arr.length - 1;
+        else currIndex--;
+        return arr[currIndex];
+    };
+
+    let current = function() {
+        return arr[currIndex];
+    };
+
+    let next = function() {
+        if (arr.length <= (currIndex + 1)) currIndex = 0;
+        else currIndex++;
+        return arr[currIndex];
+    };
+
+    return {
+        setArray: setArray,
+        toArray: toArray,
+        status: status,
+        push: push,
+
+        prev: prev,
+        curr: current,
+        next: next
+    }
+}
+    </pre>
+    <p>
+        <a href="https://en.wikipedia.org/wiki/Circular_buffer">https://en.wikipedia.org/wiki/Circular_buffer</a>
+    </p>
+    <script>
         let randomInteger = function(min, max) {
             let rand = min - 0.5 + Math.random() * (max - min + 1);
             rand = Math.round(rand);
             return rand;
         };
 
-        let getArr = function() {
+        let getArr = function(arrLength) {
             let arr = [];
             for (let i=0; i < arrLength; i++) {
                 arr.push(randomInteger(0, 9));
@@ -35,54 +81,15 @@
             return arr;
         };
 
-        let status = function() {
-            console.log({
-                length: arr.length,
-                currentIndex: currIndex,
-                currentValue: arr[currIndex],
-                arr: arr
-            });
-        };
-
-        let prev = function() {
-            if (0 > (currIndex - 1)) currIndex = arr.length - 1;
-            else currIndex--;
-            return arr[currIndex];
-        };
-
-        let current = function() {
-            return arr[currIndex];
-        };
-
-        let next = function() {
-            if (arr.length <= (currIndex + 1)) currIndex = 0;
-            else currIndex++;
-            return arr[currIndex];
-        };
-
-        construct();
-
-        return {
-            status: status,
-            prev: prev,
-            curr: current,
-            next: next
-        }
-    }
-
-    let url = new URL(location);
-    let n = url.searchParams.get("n");
-
-    let ca = new CircArray(n);
-    </pre>
-    <p>
-        <a href="https://en.wikipedia.org/wiki/Circular_buffer">https://en.wikipedia.org/wiki/Circular_buffer</a>
-    </p>
-    <script>
         let url = new URL(location);
         let n = url.searchParams.get("n");
 
-        let cArr = new CircArray(n);
+        if (!n) n = 10;
+        arrLength = isNaN(n) ? 10 : parseInt(n);
+
+        let cArr = new CircArray();
+        cArr.setArray(getArr(arrLength));
+        console.log(cArr.toArray());
     </script>
 </body>
 </html>

@@ -1,27 +1,6 @@
 function CircArray(arrLength) {
-    if (!arrLength) arrLength = 10;
-    arrLength = isNaN(arrLength) ? 10 : parseInt(arrLength);
-
     let arr = [],
         currIndex = -1;
-
-    let construct = function() {
-        arr = getArr();
-    };
-
-    let randomInteger = function(min, max) {
-        let rand = min - 0.5 + Math.random() * (max - min + 1);
-        rand = Math.round(rand);
-        return rand;
-    };
-
-    let getArr = function() {
-        let arr = [];
-        for (let i=0; i < arrLength; i++) {
-            arr.push(randomInteger(0, 9));
-        }
-        return arr;
-    };
 
     let status = function() {
         console.log({
@@ -30,6 +9,18 @@ function CircArray(arrLength) {
             currentValue: arr[currIndex],
             arr: arr
         });
+    };
+
+    let setArray = function(newArray) {
+        arr = newArray;
+    };
+
+    let toArray = function() {
+        return arr;
+    };
+
+    let push = function(el) {
+        arr.push(el);
     };
 
     let prev = function() {
@@ -48,10 +39,12 @@ function CircArray(arrLength) {
         return arr[currIndex];
     };
 
-    construct();
-
     return {
+        setArray: setArray,
+        toArray: toArray,
         status: status,
+        push: push,
+
         prev: prev,
         curr: current,
         next: next
